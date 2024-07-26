@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DetalleReserva;
+use App\Models\Pago;
 use Illuminate\Http\Request;
 
 class ReporteController extends Controller
@@ -12,9 +13,20 @@ class ReporteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $ventas = DetalleReserva::whereNotNull('reserva_id')->get();
+        $ventas = Pago::all();
+        if (isset($request->fecha_inicial) && isset($request->fecha_final)) {
+            $ventas = Pago::whereBetween('fecha_pago', [$request->fecha_inicial, $request->fecha_final])->get();
+        }
+        if (isset($request->ayer)) {
+            $ayer = now()->subDay();
+            $ventas = Pago::whereDate('fecha_pago', $ayer)->get();
+        }
+        if (isset($request->semanal)) {
+            $semana = now()->subWeek();
+            $ventas = Pago::whereDate('fecha_pago', '>=', $semana)->get();
+        }
         return view('reportes.index', compact('ventas'));
     }
 

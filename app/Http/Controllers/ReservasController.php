@@ -66,6 +66,7 @@ class ReservasController extends Controller
             'fecha_reserva' => Carbon::now()->format('Y-m-d'),
             'hora_reserva' => Carbon::now()->format('H:i:s'),
             'total' => $ruta->costo * $cantidad_asientos,
+            'estado' => 'pendiente de pago',
         ]);
 
         foreach ($request->asientos as $key => $asiento) {
@@ -73,6 +74,16 @@ class ReservasController extends Controller
             $detalle->reserva_id = $reserva->id;
             $detalle->save();
         }
+
+        return response()->json(['success' => true]);
+    }
+  
+
+    public function pagar(Request $request)
+    {
+        $reserva = Reservas::find($request->reserva);
+        $reserva->estado = 'pagado';
+        $reserva->save();
 
         return response()->json(['success' => true]);
     }

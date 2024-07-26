@@ -3,10 +3,10 @@
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-10">
-            <h2>Usuarios</h2>
+            <h2>Reporte</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item active">
-                    <strong>Clientes</strong>
+                    <strong>Detalle de Pago/Venta</strong>
                 </li>
             </ol>
         </div>
@@ -16,7 +16,6 @@
             <div class="col-lg-12">
                 <div class="ibox ">
                     <div class="ibox-title">
-                        <a href="{{ route('usuarios.create') }}" class="btn btn-success">Nuevo Cliente</a>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -36,33 +35,40 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered table-hover dataTables-example">
                                 <thead>
                                     <tr>
                                         <th>id</th>
-                                        <th>Nombre y Apellido</th>
-                                        {{-- <th>Apellido</th> --}}
-                                        <th>CI</th>
-                                        <th>Email</th>
-                                        <th>Telefono</th>
-                                        <th>Rol</th>
+                                        <th>Detalle</th>
+                                        <th>Cantidad</th>
+                                        <th>Precio</th>
+                                        <th>Subtotal</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($clientes as $cliente)
-                                    <tr class="gradeX">
-                                        <td>{{$cliente->id}}</td>
-                                        <td>{{$cliente->nombre}}</td>
-                                        {{-- <td>{{$cliente->apellido}}</td> --}}
-                                        <td>{{$cliente->ci}}</td>
-                                        <td>{{$cliente->email}}</td>
-                                        <td>{{$cliente->telefono}}</td>
-                                        <td>{{$cliente->rol}}</td>
-                                    </tr>
+                                    @php
+                                        $total = 0;
+                                    @endphp
+                                    @foreach ($detalle_ventas as $detalle)
+                                        @php
+                                            $total += $detalle->subtotal;
+                                        @endphp
+                                        <tr class="gradeX">
+                                            <td>{{ $detalle->id }}</td>
+                                            <td>{{ $detalle->detalle }}</td>
+                                            <td>{{ $detalle->cantidad }}</td>
+                                            <td>{{ $detalle->precio_unitario }}</td>
+                                            <td>{{ $detalle->subtotal }}</td>
+                                        </tr>
                                     @endforeach
                                 </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="4" class="text-right">Total</td>
+                                        <td>{{ $total }}</td>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>

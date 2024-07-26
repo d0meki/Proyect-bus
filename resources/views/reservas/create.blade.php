@@ -4,52 +4,73 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-10">
-            <h2>Registrar Nuevo Usuario</h2>
+            <h2>Reservas</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item active">
-                    <strong>Usuarios</strong>
+                    <strong>Nueva reserva</strong>
                 </li>
             </ol>
         </div>
     </div>
-    <div class="middle-box text-center loginscreen   animated fadeInDown">
-        <div>
-            <div class="form-group row">
-                <div class="col-sm-12">
-                    <select class="form-control m-b" name="cliente" id="select_cliente">
-                        <option value="0">Selecciones Cliente</option>
-                        @if (Auth::user()->roles[0]->role->rol == 'Administrador')
-                            @foreach ($clientes as $cliente)
-                                <option value="{{ $cliente }}">{{ $cliente->nombre }}</option>
-                            @endforeach
-                        @else
-                            <option value="{{ Auth::user() }}">{{ Auth::user()->nombre }}</option>
-                        @endif
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" name="nombre" placeholder="Nombre" required readonly>
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" name="ci" placeholder="Nro de Carnet" required readonly>
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" name="telefono" placeholder="+591 700XX00X" required readonly>
-            </div>
-            <div class="form-group row">
-                <div class="col-sm-12">
-                    <select class="form-control m-b" name="ruta" id="ruta_select">
-                        <option value="0">Selecciones Ruta</option>
-                        @foreach ($rutas as $ruta)
-                            <option value="{{ $ruta->destino }}">{{ $ruta->destino->nombre }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-            <button class="btn btn-primary block full-width m-b" onclick="registrarReserva()">Registrar Reserva</button>
-        </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="row m-3 text-center loginscreen   animated fadeInDown">
+                <div class="col-lg-6">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div>
+                                <select class="chosen-select" name="cliente" id="select_cliente" tabindex="2">
+                                    <option value="0">Selecciones Cliente</option>
+                                    @if (Auth::user()->roles[0]->role->rol == 'Administrador')
+                                        @foreach ($clientes as $cliente)
+                                            <option value="{{ $cliente }}">{{ $cliente->nombre }}</option>
+                                        @endforeach
+                                    @else
+                                        <option value="{{ Auth::user() }}">{{ Auth::user()->nombre }}</option>
+                                    @endif
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="nombre" placeholder="Nombre" required
+                                readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="ci" placeholder="Nro de Carnet" required
+                                readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
 
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="telefono" placeholder="+591 700XX00X" required
+                                readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="col-sm-12">
+                        <select class="chosen-select" name="ruta" id="ruta_select">
+                            <option value="0">Selecciones Ruta</option>
+                            @foreach ($rutas as $ruta)
+                                <option style="z-index: 999" value="{{ $ruta->destino }}">{{ $ruta->destino->nombre }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-4"></div>
+                <div class="col-lg-4">
+                    <button class="btn btn-primary block full-width m-b" onclick="registrarReserva()">Registrar
+                        Reserva</button>
+                </div>
+                <div class="col-lg-4"></div>
+            </div>
+        </div>
     </div>
     <div class="row">
         <div class="col-lg-12">

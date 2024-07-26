@@ -3,7 +3,6 @@
 @section('content')
 <div class="loginColumns animated fadeInDown">
         <div class="row">
-
             <div class="col-md-6">
                 <h2 class="font-bold">Bienvenido a  <strong>El Dorado SRL</strong></h2>
 

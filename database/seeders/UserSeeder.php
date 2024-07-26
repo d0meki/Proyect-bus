@@ -7,6 +7,7 @@ use Faker\Factory as Faker;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+
 class UserSeeder extends Seeder
 {
     /**
@@ -51,7 +52,7 @@ class UserSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-        // Crear 10 usuarios con avatares nulos
+        // Crear 10 usuarios con avatares nulos y roles de cliente
         for ($i = 0; $i < 10; $i++) {
             DB::table('users')->insert([
                 'nombre' => $faker->firstName,
@@ -70,6 +71,29 @@ class UserSeeder extends Seeder
             DB::table('usuario_roles')->insert([
                 'user_id' => $i + 2,
                 'rol_id' => 4,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
+        // Crear 10 usuarios con avatares nulos y roles de chofer
+        for ($i = 0; $i < 10; $i++) {
+            DB::table('users')->insert([
+                'nombre' => $faker->firstName,
+                'apellido' => $faker->lastName,
+                'ci' => $faker->ean13,
+                'direccion' => $faker->address,
+                'telefono' => $faker->phoneNumber,
+                'avatar' => null, // avatar nulo
+                'email' => $faker->unique()->safeEmail,
+                'email_verified_at' => now(),
+                'password' => Hash::make('password'), // Cambia 'password' si lo deseas
+                'remember_token' => Str::random(10),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+            DB::table('usuario_roles')->insert([
+                'user_id' => $i + 12,
+                'rol_id' => 3,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);

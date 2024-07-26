@@ -16,7 +16,7 @@
             <div class="col-lg-12">
                 <div class="ibox ">
                     <div class="ibox-title">
-                        <h5>Basic Data Tables example with responsive plugin</h5>
+                        <a href="{{ route('autobuses.create') }}" class="btn btn-success">Nueva Autobus</a>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -51,16 +51,20 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($buses as $bus)
-                                    <tr class="gradeX">
-                                        <td>{{$bus->id}}</td>
-                                        <td><img style="width=50px; height: 50px;" src="{{ asset('img/bus.png') }}" alt=""></td>
-                                        <td>{{$bus->placa}}</td>
-                                        <td>{{$bus->marca}}</td>
-                                        <td>{{$bus->modelo}}</td>
-                                        <td>{{$bus->estado}}</td>
-                                        <td><a class="btn btn-info btn-sm" href=""><i class="fa fa-pencil-square-o"></i></a> <a class="btn btn-danger btn-sm" href=""><i class="fa fa-trash-o"></i></a></td>
-                                    </tr>
+                                    @foreach ($buses as $bus)
+                                        <tr class="gradeX">
+                                            <td>{{ $bus->id }}</td>
+                                            <td><img style="width=50px; height: 50px;" src="{{ asset('img/bus.png') }}"
+                                                    alt=""></td>
+                                            <td>{{ $bus->placa }}</td>
+                                            <td>{{ $bus->marca }}</td>
+                                            <td>{{ $bus->modelo }}</td>
+                                            <td>{{ $bus->estado }}</td>
+                                            <td><a class="btn btn-info btn-sm" href=""><i
+                                                        class="fa fa-pencil-square-o"></i></a> <a
+                                                    class="btn btn-danger btn-sm" href=""><i
+                                                        class="fa fa-trash-o"></i></a></td>
+                                        </tr>
                                     @endforeach
                                 </tbody>
                             </table>

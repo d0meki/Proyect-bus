@@ -20,6 +20,7 @@ return new class extends Migration
             $table->double('costo')->nullable();
             $table->unsignedBigInteger('destino_id')->nullable();
             $table->unsignedBigInteger('buses_id')->nullable();
+            $table->unsignedBigInteger('chofer_id')->nullable();
             $table->timestamps();
         });
     }

@@ -25,7 +25,7 @@ class AutobusController extends Controller
      */
     public function create()
     {
-        //
+        return view('autobuses.create');
     }
 
     /**
@@ -36,7 +36,8 @@ class AutobusController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Autobus::create($request->all());
+        return redirect()->route('autobuses.index')->with('success', 'Autobus creado correctamente');
     }
 
     /**

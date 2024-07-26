@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Autobus;
+use App\Models\Destinos;
 use App\Models\DetalleReserva;
 use App\Models\Rutas;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class RutasController extends Controller
@@ -26,7 +29,14 @@ class RutasController extends Controller
      */
     public function create()
     {
-        
+        $destinos = Destinos::all();
+        $autobuses = Autobus::all();
+        $choferes = User::selectRaw('users.id, users.nombre, users.apellido, users.ci, users.telefono,users.direccion, roles.rol')
+        ->join('usuario_roles', 'users.id', '=', 'usuario_roles.user_id')
+        ->join('roles', 'usuario_roles.rol_id', '=', 'roles.id')
+        ->where('roles.rol', 'Chofer')
+        ->get();
+        return view('rutas.create',compact('destinos', 'autobuses','choferes'));
     }
 
     /**
@@ -37,7 +47,14 @@ class RutasController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $ruta = Rutas::create($request->all());
+        foreach (range(1, 38) as $asiento) {
+            DetalleReserva::create([
+                'ruta_id' => $ruta->id,
+                'numero_asiento' => $asiento,
+            ]);
+        }
+        return redirect()->route('rutas.index')->with('success', 'Ruta creada correctamente');
     }
 
     /**

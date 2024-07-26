@@ -16,7 +16,54 @@
             <div class="col-lg-12">
                 <div class="ibox ">
                     <div class="ibox-title">
-                        <h5>Basic Data Tables example with responsive plugin</h5>
+                        <div class="card">
+                            <div class="card-body">
+                                <form method="GET" action="{{ route('reportes.index') }}">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="font-normal">Fecha de Inicial</label>
+                                                <div class="input-group date">
+                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                    <input type="date" class="form-control" name="fecha_inicial" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="font-normal">Fecha de Inicial</label>
+                                                <div class="input-group date">
+                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                    <input type="date" class="form-control" name="fecha_final" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="font-normal">-</label>
+                                            <div class="input-group date">
+                                                <button type="submit" class="btn btn-primary ">Filtrar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <form method="GET" action="{{ route('reportes.index') }}">
+                                    <div class="row">
+                                        <input type="hidden" class="form-control" name="ayer" value="filtrar_ayer">
+                                        <div class="col-md-6">
+                                            <button type="submit" class="btn btn-primary ">Filtrar ayer <i class="fa fa-calendar"></i></button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <form method="GET" action="{{ route('reportes.index') }}">
+                                    <div class="row mt-2">
+                                        <input type="hidden" class="form-control" name="semanal" value="filtrar_semanal">
+                                        <div class="col-md-6">
+                                            <button type="submit" class="btn btn-primary ">Filtrar una semana antes <i class="fa fa-calendar"></i></button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -42,36 +89,38 @@
                                 <thead>
                                     <tr>
                                         <th>id</th>
-                                        <th>Ruta</th>
-                                        <th>Bus</th>
-                                        <th>Asiento</th>
-                                        <th>Cliente</th>
+                                        <th>Metodo Pago</th>
+                                        <th>Fecha del pago</th>
+                                        <th>Hora del pago</th>
                                         <th>Total</th>
+                                        <th>Options</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @php
-                                    $total_ventas = 0;
+                                        $total_ventas = 0;
 
                                     @endphp
-                                    @foreach($ventas as $venta)
-                                    @php
-                                    $total_ventas += $venta->ruta->costo;
-                                    @endphp
-                                    <tr class="gradeX">
-                                        <td>{{$venta->id}}</td>
-                                        <td>{{$venta->ruta->nombre}}</td>
-                                        <td>{{$venta->ruta->bus->placa}}</td>
-                                        <td>{{$venta->numero_asiento}}</td>
-                                        <td>{{$venta->reserva->user->nombre}}</td>
-                                        <td>{{$venta->ruta->costo}}</td>
-                                    </tr>
+                                    @foreach ($ventas as $venta)
+                                        @php
+                                            $total_ventas += $venta->total;
+                                        @endphp
+                                        <tr class="gradeX">
+                                            <td>{{ $venta->id }}</td>
+                                            <td>{{ $venta->metodo_pago }}</td>
+                                            <td>{{ $venta->fecha_pago }}</td>
+                                            <td>{{ $venta->hora_pago }}</td>
+                                            <td>{{ $venta->total }}</td>
+                                            <td><a href="{{ route('pagos.show', $venta->id) }}"
+                                                    class="btn btn-dark btn-sm">Ver Detalle <i class="fa fa-eye"></i></a>
+                                            </td>
+                                        </tr>
                                     @endforeach
                                 </tbody>
                                 <tfoot>
                                     <tr>
                                         <th colspan="5">Total</th>
-                                        <th>{{$total_ventas}}</th>
+                                        <th>{{ $total_ventas }}</th>
                                     </tr>
                                 </tfoot>
                             </table>

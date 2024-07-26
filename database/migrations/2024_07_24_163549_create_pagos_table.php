@@ -13,14 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('reservas', function (Blueprint $table) {
+        Schema::create('pagos', function (Blueprint $table) {
             $table->id();
-            $table->date('fecha_reserva')->nullable();
-            $table->time('hora_reserva')->nullable();
-            $table->double('total')->nullable();
-            $table->string('estado')->nullable();
-            $table->unsignedBigInteger('ruta_id')->nullable();
-            $table->unsignedBigInteger('user_id')->nullable();
+            $table->date('fecha_pago')->nullable();
+            $table->time('hora_pago')->nullable();
+            $table->string('metodo_pago')->nullable();
+            $table->decimal('total', 8, 2)->nullable();
+            $table->unsignedBigInteger('reserva_id')->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reservas');
+        Schema::dropIfExists('pagos');
     }
 };

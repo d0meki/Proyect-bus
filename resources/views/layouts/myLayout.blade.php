@@ -17,7 +17,8 @@
     <!-- Sweet Alert -->
     <link href="{!! asset('css/plugins/sweetalert/sweetalert.css') !!}" rel="stylesheet">
     <link href="{!! asset('css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css') !!}" rel="stylesheet">
-
+    {{-- Chocen --}}
+    <link href="{!! asset('css/plugins/chosen/bootstrap-chosen.css') !!}" rel="stylesheet">
     @yield('style')
 </head>
 
@@ -31,16 +32,17 @@
                             <img alt="image" class="rounded-circle" style="width: 100px; height: 100px;"
                                 src="{{ asset('img/perfil.jpg') }}" />
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                                <span class="block m-t-xs font-bold">David Williams </span>
-                                <span class="text-muted text-xs block">Director de Parques y Jardines <b
+                                <span class="block m-t-xs font-bold"> {{ Auth::user()->nombre }}
+                                    {{ Auth::user()->apellido }} </span>
+                                <span class="text-muted text-xs block">{{ Auth::user()->roles[0]->role->rol }} <b
                                         class="caret"></b></span>
                             </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                                <li><a class="dropdown-item" href="profile.html">Profile</a></li>
-                                <li><a class="dropdown-item" href="contacts.html">Contacts</a></li>
-                                <li><a class="dropdown-item" href="mailbox.html">Mailbox</a></li>
+                                <li><a class="dropdown-item" href="profile.html">Perfil</a></li>
+                                <li><a class="dropdown-item" href="contacts.html">Contacto</a></li>
+                                <li><a class="dropdown-item" href="mailbox.html">Mail</a></li>
                                 <li class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
+                                <li><a class="dropdown-item" href="{{ route('logout') }}">Salir</a></li>
                             </ul>
                         </div>
                         <div class="logo-element">
@@ -48,53 +50,65 @@
                         </div>
                     </li>
                     </li>
-                    @if(Auth::user()->roles[0]->role->rol == 'Administrador')
-                    <li>
-                        <a href="{{ route('home') }}"><i class="fa fa-tachometer"></i><span class="nav-label">Panel de
-                                Control</span> </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('autobuses.index') }}"><i class="fa fa-bus"></i><span
-                                class="nav-label">Autobuses</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('rutas.index') }}"><i class="fa fa-road"></i><span
-                                class="nav-label">Rutas</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('clientes.index') }}"><i class="fa fa-users"></i><span class="nav-label">Clientes</span>
-                        </a>
-                    </li>
+                    @if (Auth::user()->roles[0]->role->rol == 'Administrador')
+                        <li>
+                            <a href="{{ route('home') }}"><i class="fa fa-tachometer"></i><span class="nav-label">Panel
+                                    de
+                                    Control</span> </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('autobuses.index') }}"><i class="fa fa-bus"></i><span
+                                    class="nav-label">Autobuses</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('destinos.index') }}"><i class="fa fa-map-marker"></i><span
+                                    class="nav-label">Destinos</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('rutas.index') }}"><i class="fa fa-road"></i><span
+                                    class="nav-label">Rutas</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('clientes.index') }}"><i class="fa fa-users"></i><span
+                                    class="nav-label">Clientes</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('choferes.index') }}"><i class="fa fa-wheelchair"></i><span
+                                    class="nav-label">Choferes</span>
+                            </a>
+                        </li>
                     @endif
-                    @if(Auth::user()->roles[0]->role->rol == 'Administrador' || 
-                        Auth::user()->roles[0]->role->rol == 'Cliente')
-                    <li>
-                        <a href="{{ route('reservas.index') }}"><i class="fa fa-ticket"></i><span
-                                class="nav-label">Reservas</span>
-                        </a>
-                    </li>
+                    @if (Auth::user()->roles[0]->role->rol == 'Administrador' || Auth::user()->roles[0]->role->rol == 'Cliente')
+                        <li>
+                            <a href="{{ route('reservas.index') }}"><i class="fa fa-ticket"></i><span
+                                    class="nav-label">Reservas</span>
+                            </a>
+                        </li>
                     @endif
-                    @if(Auth::user()->roles[0]->role->rol == 'Administrador')
-                    <li>
-                        <a href="{{ route('reportes.index') }}"><i class="fa fa-th"></i> <span class="nav-label">Reporte de Ventas</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('usuarios.create') }}"><i class="fa fa-user-plus"></i> <span
-                                class="nav-label">Agregar Nuevo
-                                Administrador</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-lock"></i> <span class="nav-label">Auth</span><span
-                                class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level collapse">
-                            <li><a href="{{ route('roles.index') }}">Roles</a></li>
-                            <li><a href="{{ route('usuarios.index') }}">Usuarios</a></li>
-                        </ul>
-                    </li>
+                    @if (Auth::user()->roles[0]->role->rol == 'Administrador')
+                        <li>
+                            <a href="{{ route('reportes.index') }}"><i class="fa fa-th"></i> <span
+                                    class="nav-label">Reporte de Ventas</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('usuarios.create') }}"><i class="fa fa-user-plus"></i> <span
+                                    class="nav-label">Agregar Nuevo
+                                    Administrador</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-lock"></i> <span class="nav-label">Auth</span><span
+                                    class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level collapse">
+                                <li><a href="{{ route('roles.index') }}">Roles</a></li>
+                                <li><a href="{{ route('usuarios.index') }}">Usuarios</a></li>
+                            </ul>
+                        </li>
                     @endif
                     {{-- <li>
                         <a href="mailbox.html"><i class="fa fa-envelope"></i> <span class="nav-label">Mis Tareas
@@ -349,7 +363,8 @@
                                 <li>
                                     <div class="dropdown-messages-box">
                                         <a class="dropdown-item float-left" href="profile.html">
-                                            <img alt="image" class="rounded-circle" src="{{ asset('img/a7.jpg') }}">
+                                            <img alt="image" class="rounded-circle"
+                                                src="{{ asset('img/a7.jpg') }}">
                                         </a>
                                         <div class="media-body">
                                             <small class="float-right">46h ago</small>
@@ -363,7 +378,8 @@
                                 <li>
                                     <div class="dropdown-messages-box">
                                         <a class="dropdown-item float-left" href="profile.html">
-                                            <img alt="image" class="rounded-circle" src="{{ asset('img/a4.jpg') }}">
+                                            <img alt="image" class="rounded-circle"
+                                                src="{{ asset('img/a4.jpg') }}">
                                         </a>
                                         <div class="media-body ">
                                             <small class="float-right text-navy">5h ago</small>
@@ -377,7 +393,8 @@
                                 <li>
                                     <div class="dropdown-messages-box">
                                         <a class="dropdown-item float-left" href="profile.html">
-                                            <img alt="image" class="rounded-circle" src="{{ asset('img/profile.jpg') }}">
+                                            <img alt="image" class="rounded-circle"
+                                                src="{{ asset('img/profile.jpg') }}">
                                         </a>
                                         <div class="media-body ">
                                             <small class="float-right">23h ago</small>
@@ -438,15 +455,12 @@
                                 </li>
                             </ul>
                         </li>
-
-
                         <li>
                             <a href="{{ route('logout') }}">
                                 <i class="fa fa-sign-out"></i> Log out
                             </a>
                         </li>
                     </ul>
-
                 </nav>
             </div>
             <!-- TODO: ESTO HACERLO EDITABLE -->
@@ -471,7 +485,6 @@
         </div> -->
             @yield('content')
         </div>
-
     </div>
     <!-- Mainly scripts -->
     @yield('script')
@@ -488,8 +501,11 @@
     <script src="{!! asset('js/plugins/slick/slick.min.js') !!}"></script>
     <script src="{!! asset('js/plugins/dataTables/datatables.min.js') !!}"></script>
     <script src="{!! asset('js/plugins/dataTables/dataTables.bootstrap4.min.js') !!}"></script>
+    <script src="{!! asset('js/plugins/chosen/chosen.jquery.js') !!}"></script>
+    {{-- <script src="{{ asset('js/plugins/chosen/chosen.jquery.js') }}"></script> --}}
     <script>
         $(document).ready(function() {
+            $(".chosen-select").chosen({ width: "100%" });
             $('.i-checks').iCheck({
                 checkboxClass: 'icheckbox_square-green',
                 radioClass: 'iradio_square-green',

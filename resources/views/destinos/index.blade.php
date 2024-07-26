@@ -3,10 +3,10 @@
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-10">
-            <h2>Usuarios</h2>
+            <h2>Rutas</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item active">
-                    <strong>Clientes</strong>
+                    <strong>Destinos</strong>
                 </li>
             </ol>
         </div>
@@ -16,7 +16,7 @@
             <div class="col-lg-12">
                 <div class="ibox ">
                     <div class="ibox-title">
-                        <a href="{{ route('usuarios.create') }}" class="btn btn-success">Nuevo Cliente</a>
+                        <a href="{{ route('destinos.create') }}" class="btn btn-success">Nuevo Destino</a>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -36,31 +36,34 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered table-hover dataTables-example">
                                 <thead>
                                     <tr>
                                         <th>id</th>
-                                        <th>Nombre y Apellido</th>
-                                        {{-- <th>Apellido</th> --}}
-                                        <th>CI</th>
-                                        <th>Email</th>
-                                        <th>Telefono</th>
-                                        <th>Rol</th>
+                                        <th>Foto</th>
+                                        <th>Nombre</th>
+                                        <th>Estado</th>
+                                        <th>Latitud</th>
+                                        <th>Longitud</th>
+                                        <th>Opciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($clientes as $cliente)
-                                    <tr class="gradeX">
-                                        <td>{{$cliente->id}}</td>
-                                        <td>{{$cliente->nombre}}</td>
-                                        {{-- <td>{{$cliente->apellido}}</td> --}}
-                                        <td>{{$cliente->ci}}</td>
-                                        <td>{{$cliente->email}}</td>
-                                        <td>{{$cliente->telefono}}</td>
-                                        <td>{{$cliente->rol}}</td>
-                                    </tr>
+                                    @foreach ($destinos as $destino)
+                                        <tr class="gradeX">
+                                            <td>{{ $destino->id }}</td>
+                                            <td><img style="width=50px; height: 50px;" src="{{ asset('img/river.png') }}"
+                                                alt=""></td>
+                                            <td>{{ $destino->nombre }}</td>
+                                            <td>{{ $destino->estado }}</td>
+                                            <td>{{ $destino->latitud }}</td>
+                                            <td>{{ $destino->longitud }}</td>
+                                            <td><a class="btn btn-info btn-sm" href=""><i
+                                                        class="fa fa-pencil-square-o"></i></a> <a
+                                                    class="btn btn-danger btn-sm" href=""><i
+                                                        class="fa fa-trash-o"></i></a></td>
+                                        </tr>
                                     @endforeach
                                 </tbody>
                             </table>

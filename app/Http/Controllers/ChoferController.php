@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Destinos;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class DestinosController extends Controller
+class ChoferController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,12 @@ class DestinosController extends Controller
      */
     public function index()
     {
-        $destinos = Destinos::all();
-        return view('destinos.index', compact('destinos'));
+        $choferes = User::selectRaw('users.id, users.nombre, users.ci, users.email, users.telefono, roles.rol as rol')
+        ->join('usuario_roles', 'users.id', '=', 'usuario_roles.user_id')
+        ->join('roles', 'usuario_roles.rol_id', '=', 'roles.id')
+        ->where('roles.rol', 'Chofer')
+        ->get();
+        return view('choferes.index', compact('choferes'));
     }
 
     /**
@@ -25,7 +29,7 @@ class DestinosController extends Controller
      */
     public function create()
     {
-        return view('destinos.create');
+        //
     }
 
     /**
@@ -36,8 +40,7 @@ class DestinosController extends Controller
      */
     public function store(Request $request)
     {
-        Destinos::create($request->all());
-        return redirect()->route('destinos.index')->with('success', 'Destino creado correctamente');
+        //
     }
 
     /**
@@ -71,6 +74,7 @@ class DestinosController extends Controller
      */
     public function update(Request $request, $id)
     {
+        //
     }
 
     /**

@@ -15,6 +15,7 @@ class Reservas extends Model
         'total',
         'user_id',
         'ruta_id',
+        'estado',
     ];
 
     public function user()

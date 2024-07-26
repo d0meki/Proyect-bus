@@ -6,7 +6,7 @@
             <h2>Usuarios</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item active">
-                    <strong>Clientes</strong>
+                    <strong>Choferes</strong>
                 </li>
             </ol>
         </div>
@@ -16,7 +16,7 @@
             <div class="col-lg-12">
                 <div class="ibox ">
                     <div class="ibox-title">
-                        <a href="{{ route('usuarios.create') }}" class="btn btn-success">Nuevo Cliente</a>
+                        <a href="{{ route('usuarios.create') }}" class="btn btn-success">Nuevo Chofer</a>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -51,15 +51,15 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($clientes as $cliente)
+                                    @foreach($choferes as $chofer)
                                     <tr class="gradeX">
-                                        <td>{{$cliente->id}}</td>
-                                        <td>{{$cliente->nombre}}</td>
-                                        {{-- <td>{{$cliente->apellido}}</td> --}}
-                                        <td>{{$cliente->ci}}</td>
-                                        <td>{{$cliente->email}}</td>
-                                        <td>{{$cliente->telefono}}</td>
-                                        <td>{{$cliente->rol}}</td>
+                                        <td>{{$chofer->id}}</td>
+                                        <td>{{$chofer->nombre}}</td>
+                                        {{-- <td>{{$chofer->apellido}}</td> --}}
+                                        <td>{{$chofer->ci}}</td>
+                                        <td>{{$chofer->email}}</td>
+                                        <td>{{$chofer->telefono}}</td>
+                                        <td>{{$chofer->rol}}</td>
                                     </tr>
                                     @endforeach
                                 </tbody>

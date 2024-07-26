@@ -16,7 +16,7 @@
             <div class="col-lg-12">
                 <div class="ibox ">
                     <div class="ibox-title">
-                        <h5>Basic Data Tables example with responsive plugin</h5>
+                        <a href="{{ route('rutas.create') }}" class="btn btn-success">Nuevas Rutas</a>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -48,21 +48,28 @@
                                         <th>Destino</th>
                                         <th>Bus</th>
                                         <th class="text-center">Asientos</th>
+                                        <th class="text-center">Chofer</th>
                                         <th>Opciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($rutas as $ruta)
-                                    <tr class="gradeX">
-                                        <td>{{$ruta->id}}</td>
-                                        <td>{{$ruta->fecha_salida}}</td>
-                                        <td>{{$ruta->hora_salida}}</td>
-                                        <td>{{$ruta->costo}}</td>
-                                        <td>{{$ruta->destino->nombre}}</td>
-                                        <td>{{$ruta->bus->placa}}</td>
-                                        <td class="text-center"><a class="btn btn-dark btn-sm" href="{{ route('reservas.show_detalle',$ruta->id) }}"><i class="fa fa-eye"></i></a> </td>
-                                        <td><a class="btn btn-info btn-sm" href=""><i class="fa fa-pencil-square-o"></i></a> <a class="btn btn-danger btn-sm" href=""><i class="fa fa-trash-o"></i></a></td>
-                                    </tr>
+                                    @foreach ($rutas as $ruta)
+                                        <tr class="gradeX">
+                                            <td>{{ $ruta->id }}</td>
+                                            <td>{{ $ruta->fecha_salida }}</td>
+                                            <td>{{ $ruta->hora_salida }}</td>
+                                            <td>{{ $ruta->costo }}</td>
+                                            <td>{{ $ruta->destino->nombre }}</td>
+                                            <td>{{ $ruta->bus->placa }}</td>
+                                            <td class="text-center"><a class="btn btn-dark btn-sm"
+                                                    href="{{ route('reservas.show_detalle', $ruta->id) }}"><i
+                                                        class="fa fa-eye"></i></a> </td>
+                                            <td>{{ $ruta->chofer->nombre ?? "Chofer no asignado" }}</td>            
+                                            <td><a class="btn btn-info btn-sm" href=""><i
+                                                        class="fa fa-pencil-square-o"></i></a> <a
+                                                    class="btn btn-danger btn-sm" href=""><i
+                                                        class="fa fa-trash-o"></i></a></td>
+                                        </tr>
                                     @endforeach
                                 </tbody>
                             </table>

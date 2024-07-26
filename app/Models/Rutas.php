@@ -10,11 +10,12 @@ class Rutas extends Model
     use HasFactory;
     protected $table = 'rutas';
     protected $fillable = [
-        'fecha',
-        'hora',
+        'fecha_salida',
+        'hora_salida',
         'costo',
         'destino_id',
         'buses_id',
+        'chofer_id',
     ];
 
     public function destino()
@@ -25,5 +26,9 @@ class Rutas extends Model
     public function bus()
     {
         return $this->belongsTo(Autobus::class, 'buses_id');
+    }
+    public function chofer()
+    {
+        return $this->belongsTo(User::class, 'chofer_id');
     }
 }

@@ -50,6 +50,7 @@
                                         <th># Asientos reservados</th>
                                         <th>Total a Pagar</th>
                                         @if (Auth::user()->roles[0]->role->rol == 'Administrador')
+                                        <th>Estado</th>
                                         <th>Opciones</th>
                                         @endif
                                     </tr>
@@ -71,6 +72,11 @@
                                                 </ul>
                                             </td>
                                             <td>{{ $reserva->total }}</td>
+                                            @if($reserva->estado == 'pendiente de pago')
+                                            <td>{{ $reserva->estado }} <a href="{{route('reservas.index_pagar',$reserva->id)}}" target="_blank" class="btn btn-warning btn-ms">Pagar</a></td>
+                                            @else
+                                            <td>{{ $reserva->estado }}</td>
+                                            @endif
                                             @if (Auth::user()->roles[0]->role->rol == 'Administrador')
                                                 <td><a class="btn btn-info btn-sm" href=""><i
                                                             class="fa fa-pencil-square-o"></i></a> <a

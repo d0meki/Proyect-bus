@@ -35,7 +35,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         @if (Route::has('login'))
                             @auth
-                                <li><a class="nav-link page-scroll" href="{{ url('/home') }}">Home</a></li>
+                                <li><a class="nav-link page-scroll" href="{{ route('home') }}">Home</a></li>
                             @else
                                 <li><a class="nav-link page-scroll" href="{{ route('login') }}">login</a></li>
                             @endauth
