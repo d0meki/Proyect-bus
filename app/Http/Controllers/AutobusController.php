@@ -48,7 +48,7 @@ class AutobusController extends Controller
      */
     public function show($id)
     {
-        //
+        dd("creo q esta entrando aquI");
     }
 
     /**
@@ -59,7 +59,8 @@ class AutobusController extends Controller
      */
     public function edit($id)
     {
-        //
+        $bus = Autobus::find($id);
+        return view('autobuses.edit', compact('bus'));
     }
 
     /**
@@ -71,7 +72,8 @@ class AutobusController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Autobus::find($id)->update($request->all());
+        return redirect()->route('autobuses.index')->with('success', 'Autobus actualizado correctamente');
     }
 
     /**
@@ -82,6 +84,7 @@ class AutobusController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Autobus::find($id)->delete();
+        return redirect()->route('autobuses.index')->with('success', 'Autobus eliminado correctamente');
     }
 }

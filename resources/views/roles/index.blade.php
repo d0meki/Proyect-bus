@@ -5,12 +5,6 @@
         <div class="col-lg-10">
             <h2>Auth</h2>
             <ol class="breadcrumb">
-                {{-- <li class="breadcrumb-item">
-                    <a href="index.html">Home</a>
-                </li>
-                <li class="breadcrumb-item">
-                    <a>Tables</a>
-                </li> --}}
                 <li class="breadcrumb-item active">
                     <strong>Roles</strong>
                 </li>
@@ -22,7 +16,7 @@
             <div class="col-lg-12">
                 <div class="ibox ">
                     <div class="ibox-title">
-                        <h5>Basic Data Tables example with responsive plugin</h5>
+                        <a href="{{ route('roles.create') }}" class="btn btn-success">Nuevo Rol</a>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -53,12 +47,24 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($roles as $role)
-                                    <tr class="gradeX">
-                                        <td>{{$role->id}}</td>
-                                        <td>{{$role->rol}}</td>
-                                        <td><a class="btn btn-info btn-sm" href=""><i class="fa fa-pencil-square-o"></i></a> <a class="btn btn-danger btn-sm" href=""><i class="fa fa-trash-o"></i></a></td>
-                                    </tr>
+                                    @foreach ($roles as $role)
+                                        <tr class="gradeX">
+                                            <td>{{ $role->id }}</td>
+                                            <td>{{ $role->rol }}</td>
+                                            <form class="formulario-eliminar"
+                                                action="{{ route('roles.destroy', $role->id) }}" method="POST">
+                                                @csrf
+                                                @method('delete')
+                                                <td>
+                                                    <a class="btn btn-info btn-sm"
+                                                        href="{{ route('roles.edit', $role->id) }}"><i
+                                                            class="fa fa-pencil-square-o"></i></a>
+
+                                                    <button type="submit" class="btn btn-danger btn-sm"><i
+                                                            class="fa fa-trash-o"></i></button>
+                                                </td>
+                                            </form>
+                                        </tr>
                                     @endforeach
                                 </tbody>
                             </table>
@@ -68,4 +74,25 @@
             </div>
         </div>
     </div>
+    <script src="{!! asset('js/jquery-3.1.1.min.js') !!}"></script>
+    <script src="{!! asset('js/plugins/sweetalert/sweetalert.min.js') !!}"></script>
+    <script>
+        $(document).ready(function() {
+            $('.formulario-eliminar').submit(function(e) {
+                e.preventDefault()
+                swal({
+                        title: "Are you sure?",
+                        text: "You will not be able to recover this imaginary file!",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Yes, delete it!",
+                        closeOnConfirm: false
+                    },
+                    function() {
+                        e.target.submit();
+                    });
+            });
+        });
+    </script>
 @endsection

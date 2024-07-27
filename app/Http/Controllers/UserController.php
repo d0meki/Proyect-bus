@@ -79,7 +79,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+        $roles = Role::all();
+        return view('usuarios.edit', compact('user', 'roles'));
     }
 
     /**
@@ -91,7 +93,9 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        User::find($id)->update($request->all());
+        UsuarioRole::where('user_id', $id)->update(['rol_id' => $request->rol]);
+        return redirect()->route('usuarios.index')->with('success', 'Usuario actualizado exitosamente');
     }
 
     /**
@@ -102,6 +106,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        UsuarioRole::where('user_id', $id)->delete();
+        User::find($id)->delete();
+        return redirect()->route('usuarios.index')->with('success', 'Usuario eliminado exitosamente');
     }
 }

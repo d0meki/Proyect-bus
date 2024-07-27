@@ -76,7 +76,15 @@ class RutasController extends Controller
      */
     public function edit($id)
     {
-        //
+        $ruta = Rutas::find($id);
+        $destinos = Destinos::all();
+        $autobuses = Autobus::all();
+        $choferes = User::selectRaw('users.id, users.nombre, users.apellido, users.ci, users.telefono,users.direccion, roles.rol')
+        ->join('usuario_roles', 'users.id', '=', 'usuario_roles.user_id')
+        ->join('roles', 'usuario_roles.rol_id', '=', 'roles.id')
+        ->where('roles.rol', 'Chofer')
+        ->get();
+        return view('rutas.edit', compact('ruta', 'destinos', 'autobuses', 'choferes'));
     }
 
     /**
@@ -88,7 +96,8 @@ class RutasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Rutas::find($id)->update($request->all());
+        return redirect()->route('rutas.index')->with('success', 'Ruta actualizada correctamente');
     }
 
     /**
@@ -99,7 +108,8 @@ class RutasController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Rutas::find($id)->delete();
+        return redirect()->route('rutas.index')->with('success', 'Ruta eliminada correctamente');
     }
     /**
      * Manda a la vista los asientos de la ruta seleccionada

@@ -64,11 +64,20 @@
                                             <td class="text-center"><a class="btn btn-dark btn-sm"
                                                     href="{{ route('reservas.show_detalle', $ruta->id) }}"><i
                                                         class="fa fa-eye"></i></a> </td>
-                                            <td>{{ $ruta->chofer->nombre ?? "Chofer no asignado" }}</td>            
-                                            <td><a class="btn btn-info btn-sm" href=""><i
-                                                        class="fa fa-pencil-square-o"></i></a> <a
-                                                    class="btn btn-danger btn-sm" href=""><i
-                                                        class="fa fa-trash-o"></i></a></td>
+                                            <td>{{ $ruta->chofer->nombre ?? 'Chofer no asignado' }}</td>
+                                            <form class="formulario-eliminar"
+                                                action="{{ route('rutas.destroy', $ruta->id) }}" method="POST">
+                                                @csrf
+                                                @method('delete')
+                                                <td>
+                                                    <a class="btn btn-info btn-sm"
+                                                        href="{{ route('rutas.edit', $ruta->id) }}"><i
+                                                            class="fa fa-pencil-square-o"></i></a>
+
+                                                    <button type="submit" class="btn btn-danger btn-sm"><i
+                                                            class="fa fa-trash-o"></i></button>
+                                                </td>
+                                            </form>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -79,4 +88,25 @@
             </div>
         </div>
     </div>
+    <script src="{!! asset('js/jquery-3.1.1.min.js') !!}"></script>
+    <script src="{!! asset('js/plugins/sweetalert/sweetalert.min.js') !!}"></script>
+    <script>
+        $(document).ready(function() {
+            $('.formulario-eliminar').submit(function(e) {
+                e.preventDefault()
+                swal({
+                        title: "Are you sure?",
+                        text: "You will not be able to recover this imaginary file!",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Yes, delete it!",
+                        closeOnConfirm: false
+                    },
+                    function() {
+                        e.target.submit();
+                    });
+            });
+        });
+    </script>
 @endsection

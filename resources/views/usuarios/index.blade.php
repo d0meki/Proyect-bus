@@ -69,10 +69,19 @@
                                                 </ol>
                                             </td>
                                             <td>{{ $user->direccion }}</td>
-                                            <td><a class="btn btn-info btn-sm" href=""><i
-                                                        class="fa fa-pencil-square-o"></i></a> <a
-                                                    class="btn btn-danger btn-sm" href=""><i
-                                                        class="fa fa-trash-o"></i></a></td>
+                                            <form class="formulario-eliminar"
+                                                action="{{ route('usuarios.destroy', $user->id) }}" method="POST">
+                                                @csrf
+                                                @method('delete')
+                                                <td>
+                                                    <a class="btn btn-info btn-sm"
+                                                        href="{{ route('usuarios.edit', $user->id) }}"><i
+                                                            class="fa fa-pencil-square-o"></i></a>
+
+                                                    <button type="submit" class="btn btn-danger btn-sm"><i
+                                                            class="fa fa-trash-o"></i></button>
+                                                </td>
+                                            </form>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -83,4 +92,25 @@
             </div>
         </div>
     </div>
+    <script src="{!! asset('js/jquery-3.1.1.min.js') !!}"></script>
+    <script src="{!! asset('js/plugins/sweetalert/sweetalert.min.js') !!}"></script>
+    <script>
+        $(document).ready(function() {
+            $('.formulario-eliminar').submit(function(e) {
+                e.preventDefault()
+                swal({
+                        title: "Are you sure?",
+                        text: "You will not be able to recover this imaginary file!",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Yes, delete it!",
+                        closeOnConfirm: false
+                    },
+                    function() {
+                        e.target.submit();
+                    });
+            });
+        });
+    </script>
 @endsection

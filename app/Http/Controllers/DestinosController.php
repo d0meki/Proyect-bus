@@ -59,7 +59,8 @@ class DestinosController extends Controller
      */
     public function edit($id)
     {
-        //
+        $destino = Destinos::find($id);
+        return view('destinos.edit', compact('destino'));
     }
 
     /**
@@ -71,6 +72,8 @@ class DestinosController extends Controller
      */
     public function update(Request $request, $id)
     {
+        Destinos::find($id)->update($request->all());
+        return redirect()->route('destinos.index')->with('success', 'Destino actualizado correctamente');
     }
 
     /**
@@ -81,6 +84,7 @@ class DestinosController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Destinos::find($id)->delete();
+        return redirect()->route('destinos.index')->with('success', 'Destino eliminado correctamente');
     }
 }

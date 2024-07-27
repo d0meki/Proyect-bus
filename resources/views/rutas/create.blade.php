@@ -58,7 +58,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="font-normal">Autobus</label>
+                                    <label class="font-normal">Destino</label>
                                     <div>
                                         <select class="chosen-select" name="destino_id" tabindex="2">
                                             <option value="0" readonly>Seleccione un destino</option>

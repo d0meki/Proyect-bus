@@ -130,6 +130,7 @@ class ReservasController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Reservas::find($id)->delete();
+        return redirect()->route('reservas.index')->with('success', 'Reserva eliminada correctamente');
     }
 }

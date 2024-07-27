@@ -19,6 +19,7 @@
     <link href="{!! asset('css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css') !!}" rel="stylesheet">
     {{-- Chocen --}}
     <link href="{!! asset('css/plugins/chosen/bootstrap-chosen.css') !!}" rel="stylesheet">
+
     @yield('style')
 </head>
 
@@ -502,7 +503,6 @@
     <script src="{!! asset('js/plugins/dataTables/datatables.min.js') !!}"></script>
     <script src="{!! asset('js/plugins/dataTables/dataTables.bootstrap4.min.js') !!}"></script>
     <script src="{!! asset('js/plugins/chosen/chosen.jquery.js') !!}"></script>
-    {{-- <script src="{{ asset('js/plugins/chosen/chosen.jquery.js') }}"></script> --}}
     <script>
         $(document).ready(function() {
             $(".chosen-select").chosen({ width: "100%" });
